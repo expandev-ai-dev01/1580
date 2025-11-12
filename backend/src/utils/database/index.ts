@@ -22,14 +22,6 @@ export enum ExpectedReturn {
   Multi = 'Multi',
 }
 
-/**
- * @interface IRecordSet
- * @description Generic record set interface
- */
-export interface IRecordSet<T = any> {
-  recordset: T[];
-}
-
 let pool: sql.ConnectionPool | null = null;
 
 /**
@@ -100,7 +92,7 @@ export async function dbRequest(
     if (resultSetNames && resultSetNames.length > 0) {
       const namedResults: any = {};
       resultSetNames.forEach((name, index) => {
-        namedResults[name] = result.recordsets[index];
+        namedResults[name] = (result.recordsets as sql.IRecordSet<any>[])[index];
       });
       return namedResults;
     }
