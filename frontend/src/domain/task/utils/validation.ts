@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const taskCreateFormSchema = z.object({
   title: z
-    .string()
+    .string({ message: 'O título é obrigatório' })
     .trim()
     .min(3, 'O título deve ter pelo menos 3 caracteres')
     .max(100, 'O título não pode exceder 100 caracteres'),
@@ -20,7 +20,7 @@ export const taskCreateFormSchema = z.object({
         return selectedDate >= today;
       },
       {
-        message: 'A data de vencimento не pode ser no passado',
+        message: 'A data de vencimento não pode ser no passado',
       }
     ),
   priority: z.enum(['baixa', 'media', 'alta']),
